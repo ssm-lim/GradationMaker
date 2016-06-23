@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <!-- Script -->
+    <script src="/js/lib/jquery.js"></script>
+    <script src="/js/chart.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		$maker = new GradationMaker($('#chart')[0]);
+    		
+    		var x = 0, 
+    			xMax = 100, 
+    			xMin = 0,
+    			xUnit = 10,
+    			xLbIntv = 2,
+    			xGrIntv = 2,
+    			
+    			y = 0, 
+    			yMax = -50, 
+    			yMin = 50,
+    			yUnit = 10,
+    			yLbIntv = 2,
+    			yGrIntv = 2;
+    		
+    		draw();
+    		
+    		
+    		$('#btnY').click(function(){
+    			$maker.yGuideLine(y);
+    		});
+    		$('#prevY').click(function(){
+    			if(y < yMin){
+    				y = y - yUnit;
+	    			$maker.yGuideLine(y);
+    			}
+    		});
+    		$('#nextY').click(function(){
+    			if(y > yMax){
+    				y = y + yUnit;
+	    			$maker.yGuideLine(y);
+    			}
+    		});
+    		
+    		$('#btnX').click(function(){
+    			$maker.xGuideLine(x);
+    		});
+    		$('#prevX').click(function(){
+    			if(x > xMin){
+    				x = x - xUnit;
+	    			$maker.xGuideLine(x);
+    			}
+    		});
+    		$('#nextX').click(function(){
+    			if(x < xMax){
+    				x = x + xUnit;
+	    			$maker.xGuideLine(x);
+    			}
+    		});
+    		
+    		
+    		$('#image1').click(function(){
+    			$maker.bgReset();
+    			$maker.setImg('./img/sc_demodulation.png');
+    			
+    			y = 0, 
+    			yMax = -2, 
+    			yMin = 2,
+    			yUnit = 0.5,
+    			yLbIntv = 2,
+    			yGrIntv = 2;
+    			
+    			x = 250, 
+    			xMax = 500, 
+    			xMin = 0,
+    			xUnit = 50,
+    			xLbIntv = 5,
+    			xGrIntv = 5;
+    			
+    			$maker.drawAxisLb('Time(ms)', 'Voltage(V)');
+    			
+    			draw();
+    			
+    		});
+    		$('#image2').click(function(){
+    			$maker.bgReset();
+    			$maker.setImg('./img/sc_modulation_time.png');
+    			
+    			y = 0, 
+    			yMax = -8, 
+    			yMin = 8,
+    			yUnit = 4,
+    			yLbIntv = 2,
+    			yGrIntv = 2;
+    			
+    			x = 50, 
+    			xMax = 100, 
+    			xMin = 0,
+    			xUnit = 20,
+    			xLbIntv = 2,
+    			xGrIntv = 2;
+    			
+    			$maker.drawAxisLb('Time(ms)', 'Voltage(V)');
+    			
+    			draw();
+    			
+    		});
+    		$('#image3').click(function(){
+    			$maker.bgReset();
+    			$maker.setImg('./img/sc_modulation_hz.png');
+    			
+    			y = 0, 
+    			yMax = 0.0, 
+    			yMin = 2.8,
+    			yUnit = 0.7,
+    			yLbIntv = 2,
+    			yGrIntv = 2;
+    			
+    			x = 1.00, 
+    			xMax = 1.02, 
+    			xMin = 0.98,
+    			xUnit = 0.01,
+    			xLbIntv = 2,
+    			xGrIntv = 2;
+    			
+    			$maker.drawAxisLb('Frequency(Hz)', 'Voltage(V)');
+    			
+    			draw();
+    		});
+    		
+    		function draw(){
+    			// max, min, interval
+        		$maker.setAxisY(yMax, yMin, yUnit);
+        		$maker.setAxisX(xMax, xMin, xUnit);
+        		
+        		// gradation interval, label interbal
+        		$maker.resetAxisY(yGrIntv, yLbIntv);
+        		$maker.resetAxisX(xGrIntv, xLbIntv);
+    		}
+	    });
+    </script>
+    <style type="text/css">
+    	#chart {
+    		width: 800px;
+    		height: 500px;
+    		border: 1px solid #000;
+    	}
+    	
+    	.buttons, .images {
+    		margin-top: 10px;
+    	}
+    		
+    </style>
+<body>     
+	<div id="chart"></div>
+	<div class="buttons">
+		<button id="btnX">btnX</button>
+		<button id="prevX">prevX</button>
+		<button id="nextX">nextX</button>
+		
+		<button id="btnY">btnY</button>
+		<button id="prevY">prevY</button>
+		<button id="nextY">nextY</button>
+	</div>
+	<div class="images">
+		<button id="image1">image1</button>
+		<button id="image2">image2</button>
+		<button id="image3">image3</button>
+	</div>	
+</body>
+</html>
